@@ -42,9 +42,6 @@ public class LaunchApp {
 //		co.addExtensions(new File(""));
 //		co.addArguments("--headless");
 		WebDriver driver = new ChromeDriver(co);
-//		Cookie c1 = new Cookie("rememberUn", "true");
-//		Cookie c2 = new Cookie("login", "anVsMjIubWl0aHVuQHRhLmNvbQ==");
-
 //		driver.get("https://login.salesforce.com/");
 		driver.navigate().to("https://selenium-prd.firebaseapp.com/");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -71,9 +68,9 @@ public class LaunchApp {
 		
 		password.sendKeys(Keys.ENTER);
 		
-//		WebElement loginButton = driver.findElement(By.xpath("//button[text()='Login to Account']"));
-//		js.executeScript("arguments[0].click();", loginButton);
-//		loginButton.click();
+		WebElement loginButton = driver.findElement(By.xpath("//button[text()='Login to Account']"));
+		js.executeScript("arguments[0].click();", loginButton);
+		loginButton.click();
 		Thread.sleep(2000);
 		driver.findElement(By.linkText("Home")).click();
 		Thread.sleep(2000);
