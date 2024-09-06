@@ -50,6 +50,17 @@ public class LaunchApp {
 		password.sendKeys("admin123");
 		password.sendKeys(Keys.ENTER);
 		
+		ChromeOptions co = new ChromeOptions();
+		WebDriver driver = new ChromeDriver(co);
+//		driver.get("https://login.salesforce.com/");
+		driver.navigate().to("https://selenium-prd.firebaseapp.com/");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WaitUtils.explicitlyWaitForVisibility(driver, driver.findElement(By.id("email_field")));
+		WebElement userName = driver.findElement(By.id("email_field"));
+		js.executeScript("arguments[0].value='admin123@gmail.com';", userName);
+		WebElement password = driver.findElement(By.id("password_field"));
+		password.sendKeys("admin123");
+		password.sendKeys(Keys.ENTER);
 		WebElement loginButton = driver.findElement(By.xpath("//button[text()='Login to Account']"));
 		js.executeScript("arguments[0].click();", loginButton);
 		loginButton.click();
