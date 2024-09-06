@@ -28,12 +28,6 @@ public class LoginTest extends BaseTest {
 		Assert.assertEquals("", actualPassword, "The actual and expected passwords should be same");
 		lp.clickLogin();
 		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"), "Error message should be same");
-		Assert.assertEquals("", actualPassword, "The actual and expected passwords should be same");
-		lp.clickLogin();
-		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"), "Error message should be same");
-		lp.enterUsername(expectedUsername);
-		String actualUsername1 = lp.getValueAttribute(lp.userName);
-		Assert.assertEquals(expectedUsername, actualUsername1, "The actual and expected usernames should be same");
 	}
 	
 	@Test()
