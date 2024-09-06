@@ -28,6 +28,9 @@ public class LoginTest extends BaseTest {
 		Assert.assertEquals("", actualPassword, "The actual and expected passwords should be same");
 		lp.clickLogin();
 		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"), "Error message should be same");
+		Assert.assertEquals("", actualPassword, "The actual and expected passwords should be same");
+		lp.clickLogin();
+		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"), "Error message should be same");
 	}
 	
 	@Test()
@@ -53,22 +56,4 @@ public class LoginTest extends BaseTest {
 //		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("homepage.title"));
 		Assert.assertTrue(hPage.isHomePage(), "User should be in home page");
 	}
-	
-	
-//	
-//	@Test()
-//	public void login() {
-//		System.out.println("m3");
-////		throw new NoSuchElementException();
-//		
-//	}
-//	
-//	@Test(priority = -1, dependsOnMethods = "login")
-//	public void home() {
-//		System.out.println("m4");
-//		throw new NoSuchElementException();
-//	}
-//m1 m3 m2 m4
-//	m1 m3 m4 m2
-//	
 }
