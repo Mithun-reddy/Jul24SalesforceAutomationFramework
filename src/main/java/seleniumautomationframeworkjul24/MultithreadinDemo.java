@@ -26,9 +26,6 @@ public class MultithreadinDemo implements Runnable {
 			Thread t1 = new Thread(mt);
 			MultithreadinDemo mt2 = new MultithreadinDemo(2);
 			Thread t2 = new Thread(mt2);
-			t1.start();
-			t1.join();
-			t2.start();
 		
 		
 	}
