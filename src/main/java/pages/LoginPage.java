@@ -1,10 +1,16 @@
 package pages;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+
+import utils.FileUtils;
 
 public class LoginPage extends BasePage{
 
@@ -57,6 +63,14 @@ public class LoginPage extends BasePage{
 	public HomePage loginToApp(WebDriver driver, String username, String passWord) {
 		this.enterUsername(username);
 		this.enterPassword(passWord);
+		this.clickLogin();
+		return new HomePage(driver);
+	}
+	
+	public HomePage loginToApp(WebDriver driver) throws FileNotFoundException, IOException {
+		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
+		this.enterUsername(FileUtils.readLoginPropertiesFile("valid.username"));
+		this.enterPassword(FileUtils.readLoginPropertiesFile("valid.password"));
 		this.clickLogin();
 		return new HomePage(driver);
 	}
