@@ -2,6 +2,7 @@ package tests;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,8 +17,12 @@ import utils.FileUtils;
 public class LoginTest extends BaseTest {
 	
 	
-//	@Test()
+	@Test()
 	public void loginErrorMessageTC01() throws InterruptedException, FileNotFoundException, IOException {
+		WebDriver driver = getBrowser();
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+//		lp = new LoginPage(driver);
+		LoginPage lp = new LoginPage(driver);
 		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
 		String expectedUsername = FileUtils.readLoginPropertiesFile("valid.username");
 		lp.enterUsername(expectedUsername);
@@ -32,6 +37,10 @@ public class LoginTest extends BaseTest {
 	
 	@Test()
 	public void loginToSalesforceTC02() throws InterruptedException, FileNotFoundException, IOException {
+		WebDriver driver = getBrowser();
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+//		lp = new LoginPage(driver);
+		LoginPage lp = new LoginPage(driver);
 		SoftAssert sa = new SoftAssert();
 		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
 		String expectedUsername = FileUtils.readLoginPropertiesFile("valid.username");
@@ -45,12 +54,14 @@ public class LoginTest extends BaseTest {
 		sa.assertAll();
 	}
 	
-//	@Test()
+	@Test()
 	public void loginToSalesforce() throws InterruptedException, FileNotFoundException, IOException {
+		WebDriver driver = getBrowser();
+		LoginPage lp = new LoginPage(driver);
 		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
 		String expectedUsername = FileUtils.readLoginPropertiesFile("valid.username");
 		HomePage hPage = lp.loginToApp(driver, expectedUsername, FileUtils.readLoginPropertiesFile("valid.password"));
-//		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("homepage.title"));
+		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("homepage.title"));
 		Assert.assertTrue(hPage.isHomePage(), "User should be in home page");
 	}
 }

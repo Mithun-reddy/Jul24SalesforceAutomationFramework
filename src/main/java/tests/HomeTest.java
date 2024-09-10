@@ -16,12 +16,12 @@ public class HomeTest extends BaseTest {
 
 	@BeforeMethod
 	public void login() throws FileNotFoundException, IOException {
+		
 		hp = lp.loginToApp(driver);
 	}
 
 	@Test
 	public void verifyMyProfileOption_TC06() throws FileNotFoundException, IOException, InterruptedException {
-		
 		hp.clickUserMenu();
 		Assert.assertTrue(hp.verifyUserMenuOptions(), "User Menu options should be verified");
 	    MyProfilePage profilePage = hp.selectMyProfilePage(driver);
@@ -29,12 +29,10 @@ public class HomeTest extends BaseTest {
 	    Assert.assertTrue(profilePage.verifyContactIframeAvailability(driver), "");
 	    Assert.assertTrue(profilePage.verifyAboutTab(driver), "");
 	    Assert.assertTrue(profilePage.verifyLastNameChange(),"");
-//	    Assert.assertTrue(profilePage.verifyCreatePost(driver, "Hello Team"));
-//	    Assert.assertTrue(profilePage.verifyFileUpload(driver));
+	    Assert.assertTrue(profilePage.verifyCreatePost(driver, "Hello Team"));
+	    Assert.assertTrue(profilePage.verifyFileUpload(driver));
 	    profilePage.clickOnAddPhoto(driver);
 	    Assert.assertTrue(profilePage.verifyAddPhoto(driver));
-	    
-		Thread.sleep(10000);
 	}
 
 }
