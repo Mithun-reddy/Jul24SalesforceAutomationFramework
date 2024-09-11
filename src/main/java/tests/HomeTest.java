@@ -3,20 +3,23 @@ package tests;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import pages.HomePage;
+import pages.LoginPage;
 import pages.MyProfilePage;
 
 public class HomeTest extends BaseTest {
 	HomePage hp;
-
+	WebDriver driver;
 	@BeforeMethod
 	public void login() throws FileNotFoundException, IOException {
-		
+		WebDriver driver = getBrowser();
+		LoginPage lp = new LoginPage(driver);
 		hp = lp.loginToApp(driver);
 	}
 

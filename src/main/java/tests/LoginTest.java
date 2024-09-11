@@ -2,21 +2,23 @@ package tests;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.Duration;
-
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import listeners.ListenersSFDC;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.CommonUtils;
 import utils.FileUtils;
 
+@Listeners(ListenersSFDC.class)
 public class LoginTest extends BaseTest {
-	
-	
+
 	@Test()
 	public void loginErrorMessageTC01() throws InterruptedException, FileNotFoundException, IOException {
 		WebDriver driver = getBrowser();
@@ -24,17 +26,22 @@ public class LoginTest extends BaseTest {
 //		lp = new LoginPage(driver);
 		LoginPage lp = new LoginPage(driver);
 		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
+		test.info("App launched");
 		String expectedUsername = FileUtils.readLoginPropertiesFile("valid.username");
 		lp.enterUsername(expectedUsername);
+		test.info("User name entered");
 		String actualUsername = lp.getValueAttribute(lp.userName);
 		Assert.assertEquals(expectedUsername, actualUsername, "The actual and expected usernames should be same");
 		lp.password.clear();
 		String actualPassword = lp.getValueAttribute(lp.password);
 		Assert.assertEquals("", actualPassword, "The actual and expected passwords should be same");
 		lp.clickLogin();
-		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"), "Error message should be same");
+		test.info("Login button clicked");
+		CommonUtils.captureScreenshot(driver);
+		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"),
+				"Error message should be same");
 	}
-	
+
 	@Test()
 	public void loginToSalesforceTC02() throws InterruptedException, FileNotFoundException, IOException {
 		WebDriver driver = getBrowser();
@@ -52,9 +59,10 @@ public class LoginTest extends BaseTest {
 		sa.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("homepage.title"));
 		System.out.println("Reached last line");
 		sa.assertAll();
+		throw new ElementClickInterceptedException("");
 	}
-	
-	@Test()
+
+//	@Test()
 	public void loginToSalesforce() throws InterruptedException, FileNotFoundException, IOException {
 		WebDriver driver = getBrowser();
 		LoginPage lp = new LoginPage(driver);
@@ -64,4 +72,31 @@ public class LoginTest extends BaseTest {
 		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("homepage.title"));
 		Assert.assertTrue(hPage.isHomePage(), "User should be in home page");
 	}
+
+//	@Test(dataProvider = "ValidAccounts", dataProviderClass = CommonUtils.class)
+	public void loginToSalesforceAccounts(String username, String pass)
+			throws InterruptedException, FileNotFoundException, IOException {
+		WebDriver driver = getBrowser();
+		LoginPage lp = new LoginPage(driver);
+		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
+		HomePage hPage = lp.loginToApp(driver, username, pass);
+//		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("homepage.title"));
+//		Assert.assertTrue(hPage.isHomePage(), "User should be in home page");
+	}
+
+		
+	@DataProvider(name = "InvalidAccounts")
+	public Object loginTestDataInValid() {
+//		To read those user accounts logic
+		return new Object[][] { {"mithun@tek.com", "12345" }, { "deek@tek.com", "12345" },
+				{ "dean@tek.com", "12345" } };
+	}
+	
+	@DataProvider(name = "AccountNames")
+	public String[] accounts() {
+//		To read those user accounts logic
+		return new String[] {"", ""};
+	}
+	
+
 }

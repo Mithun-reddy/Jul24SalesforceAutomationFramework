@@ -1,5 +1,6 @@
 package tests;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
@@ -17,12 +18,16 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+
 import pages.HomePage;
 import pages.LoginPage;
+import utils.ReportManager;
 
 public class BaseTest {
-//	LoginPage lp = null;
-//	WebDriver driver = null;
+	ExtentReports extent;
+	public static ExtentTest test;
 	HomePage hp = null;
 	public static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
 
@@ -31,7 +36,7 @@ public class BaseTest {
 		threadLocalDriver.set(driver);
 	}
 
-	public WebDriver getBrowser() {
+	public static WebDriver getBrowser() {
 		return threadLocalDriver.get();
 	}
 
@@ -64,10 +69,22 @@ public class BaseTest {
 		return driver;
 	}
 
-	@Parameters({"bName","headless"})
+	
+	@BeforeSuite
+	public void setup() {
+		extent = ReportManager.getInstance();
+	}
+	
+	@AfterSuite
+	public void tearDownFinal() {
+		extent.flush();
+	}
+	
+	@Parameters("bName")
 	@BeforeMethod(alwaysRun = true)
-	public void setup(String browserName, boolean headLess) {
-		setDriver(browserName, headLess);
+	public void setup(String browserName, Method name) {
+		test = extent.createTest(name.getName());
+		setDriver(browserName, false);
 		WebDriver driver = getBrowser();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 	}
