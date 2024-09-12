@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -27,9 +28,9 @@ import utils.ReportManager;
 
 public class BaseTest {
 	ExtentReports extent;
-	public static ExtentTest test;
 	HomePage hp = null;
 	public static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
+	public static ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
 
 	public void setDriver(String browserName, boolean headless) {
 		WebDriver driver = getDriver(browserName, false);
@@ -81,9 +82,9 @@ public class BaseTest {
 	}
 	
 	@Parameters("bName")
-	@BeforeMethod(alwaysRun = true)
-	public void setup(String browserName, Method name) {
-		test = extent.createTest(name.getName());
+	@BeforeMethod( alwaysRun = true)
+	public void setup(@Optional("chrome") String browserName, Method name) {
+		test.set(extent.createTest(name.getName()));
 		setDriver(browserName, false);
 		WebDriver driver = getBrowser();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));

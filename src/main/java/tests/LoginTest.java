@@ -26,17 +26,17 @@ public class LoginTest extends BaseTest {
 //		lp = new LoginPage(driver);
 		LoginPage lp = new LoginPage(driver);
 		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
-		test.info("App launched");
+		test.get().info("App launched");
 		String expectedUsername = FileUtils.readLoginPropertiesFile("valid.username");
 		lp.enterUsername(expectedUsername);
-		test.info("User name entered");
+		test.get().info("User name entered");
 		String actualUsername = lp.getValueAttribute(lp.userName);
 		Assert.assertEquals(expectedUsername, actualUsername, "The actual and expected usernames should be same");
 		lp.password.clear();
 		String actualPassword = lp.getValueAttribute(lp.password);
 		Assert.assertEquals("", actualPassword, "The actual and expected passwords should be same");
 		lp.clickLogin();
-		test.info("Login button clicked");
+		test.get().info("Login button clicked");
 		CommonUtils.captureScreenshot(driver);
 		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"),
 				"Error message should be same");

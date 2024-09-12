@@ -18,8 +18,8 @@ public class ListenersSFDC implements ITestListener {
 	}
 
 	public void onTestFailure(ITestResult result) {
-		BaseTest.test.addScreenCaptureFromPath(CommonUtils.captureScreenshot(BaseTest.getBrowser()));
-		BaseTest.test.log(Status.FAIL, result.getName()+" FAILED");
+		BaseTest.test.get().addScreenCaptureFromPath(CommonUtils.captureScreenshot(BaseTest.getBrowser()));
+		BaseTest.test.get().log(Status.FAIL, result.getName()+" FAILED");
 	}
 
 
@@ -28,7 +28,7 @@ public class ListenersSFDC implements ITestListener {
 //	}
 //
 	public void onTestSuccess(ITestResult result) {
-		BaseTest.test.log(Status.PASS, result.getName()+" PASSED");
+		BaseTest.test.get().log(Status.PASS, result.getName()+" PASSED");
 		
 	}
 
