@@ -42,18 +42,22 @@ public class LoginPage extends BasePage{
 	
 	public void enterUsername(String username) {
 		this.userName.sendKeys(username);
+		logger.debug("Username is entered");
 	}
 	
 	public void enterPassword(String passWord) {
 		this.password.sendKeys(passWord);
+		logger.debug("password is entered");
 	}
 	
 	public String getErrorMessage() {
+		logger.debug("Error message is fetched");
 		return this.errorMessage.getText();
 	}
 	
 	public void clickLogin() {
 		this.loginButton.click();
+		logger.debug("Logging button clicked");
 	}
 	
 	public String getValueAttribute(WebElement element) {
@@ -69,6 +73,7 @@ public class LoginPage extends BasePage{
 	
 	public HomePage loginToApp(WebDriver driver) throws FileNotFoundException, IOException {
 		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
+		logger.debug("Navigated to the login page");
 		this.enterUsername(FileUtils.readLoginPropertiesFile("valid.username"));
 		this.enterPassword(FileUtils.readLoginPropertiesFile("valid.password"));
 		this.clickLogin();

@@ -195,6 +195,7 @@ public class MyProfilePage extends BasePage {
 		boolean isAboutTabVerified = true;
 		String lastName = "Reddy";
 		this.aboutTab.click();
+		logger.debug("MyProfilePage : verifyAboutTab : Error message is fetched");
 		if (this.aboutTabLastName.isDisplayed()) {
 			this.aboutTabLastName.clear();
 			this.aboutTabLastName.sendKeys(lastName);

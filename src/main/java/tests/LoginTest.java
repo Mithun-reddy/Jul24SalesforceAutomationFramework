@@ -22,6 +22,7 @@ public class LoginTest extends BaseTest {
 	@Test()
 	public void loginErrorMessageTC01() throws InterruptedException, FileNotFoundException, IOException {
 		WebDriver driver = getBrowser();
+		logger.info("Browser instance launched");
 //		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 //		lp = new LoginPage(driver);
 		LoginPage lp = new LoginPage(driver);
@@ -40,6 +41,7 @@ public class LoginTest extends BaseTest {
 		CommonUtils.captureScreenshot(driver);
 		Assert.assertEquals(lp.getErrorMessage(), FileUtils.readLoginPropertiesFile("error.text"),
 				"Error message should be same");
+		logger.info("loginErrorMessageTC01: Finished");
 	}
 
 	@Test()

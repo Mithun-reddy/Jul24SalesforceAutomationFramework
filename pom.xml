@@ -5,6 +5,9 @@
 	<groupId>com.tekarch.demo</groupId>
 	<artifactId>seleniumautomationframeworkjul24</artifactId>
 	<version>1.0.0</version>
+	<properties>
+		<log4jversion>2.18.0</log4jversion>
+	</properties>
 
 	<dependencies>
 		<!--
@@ -39,6 +42,16 @@
 			<version>5.1.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4jversion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4jversion}</version>
+		</dependency>
 
 	</dependencies>
 </project>

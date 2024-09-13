@@ -3,6 +3,8 @@ package tests;
 import java.lang.reflect.Method;
 import java.time.Duration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -31,7 +33,8 @@ public class BaseTest {
 	HomePage hp = null;
 	public static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
 	public static ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
-
+	public static Logger logger = LogManager.getLogger("BaseTest");
+	
 	public void setDriver(String browserName, boolean headless) {
 		WebDriver driver = getDriver(browserName, false);
 		threadLocalDriver.set(driver);
