@@ -16,12 +16,12 @@ public class LoginSteps extends BaseTest{
 	WebDriver driver;
 	LoginPage lp;
 	
-	@Before
+	@Before("@regression")
 	public void setup() {
-		
+		System.out.println("Only for regression");
 	}
 	
-	@After()
+	@After(value = "@test")
 	public void tearDown() {
 		driver.close();
 	}
