@@ -22,7 +22,7 @@
 				<configuration>
 					<suiteXmlFiles>
 						<suiteXmlFile>
-							parallel.xml
+							testng.xml
 						</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
